@@ -38,6 +38,8 @@ public class TrickyButtons : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"TrickyInteractionSystem",
+				"TrickyAnimationComponents",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
