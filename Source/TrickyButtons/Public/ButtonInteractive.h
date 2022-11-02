@@ -27,5 +27,9 @@ protected:
 	USphereInteractionTrigger* InteractionTrigger = nullptr;
 
 private:
+	virtual void StartInteraction_Implementation(AActor* OtherActor) override;
+	
 	virtual bool Interact_Implementation(AActor* OtherActor) override;
+
+	virtual void StopInteraction_Implementation(AActor* OtherActor) override;
 };
