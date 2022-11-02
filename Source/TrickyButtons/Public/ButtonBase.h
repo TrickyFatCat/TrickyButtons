@@ -26,16 +26,16 @@ UCLASS()
 class TRICKYBUTTONS_API AButtonBase : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AButtonBase();
 
 	virtual void OnConstruction(const FTransform& Transform) override;
-	
+
 protected:
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(BlueprintAssignable, Category="Button")
@@ -43,7 +43,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category="Button")
 	FOnReversedSignature OnReversed;
-	
+
 	UFUNCTION(BlueprintCallable, Category="Button")
 	void SetIsEnabled(const bool bIsEnabled);
 
@@ -53,23 +53,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UTimelineAnimationComponent* ButtonAnimationComponent = nullptr;
-	
-	UFUNCTION(BlueprintCallable, Category="Button")
-	bool Press();
-	
-	UFUNCTION(BlueprintImplementableEvent, Category="Button")
-	void OnButtonStateChanged(EButtonState NewState);
-	
-	UFUNCTION(BlueprintImplementableEvent, Category="Button")
-	void OnButtonReversed();
-	
-	UFUNCTION(BlueprintImplementableEvent, Category="Button")
-	void OnButtonDisabled();
-	
-	UFUNCTION(BlueprintImplementableEvent, Category="Button")
-	void OnButtonEnabled();
 
-private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	EButtonState InitialState = EButtonState::Normal;
 
@@ -81,6 +65,21 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	bool bIsReversible = false;
+
+	UFUNCTION(BlueprintCallable, Category="Button")
+	bool Press();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonStateChanged(EButtonState NewState);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonReversed();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonDisabled();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonEnabled();
 
 	UFUNCTION()
 	void ChangeState(const ETimelineAnimationState NewAnimationState);
