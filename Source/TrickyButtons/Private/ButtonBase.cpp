@@ -51,6 +51,7 @@ void AButtonBase::Tick(float DeltaTime)
 void AButtonBase::SetIsEnabled(const bool bIsEnabled)
 {
 	CurrentState = bIsEnabled ? PreviousState : EButtonState::Disabled;
+	bIsEnabled ? OnButtonEnabled() : OnButtonDisabled();
 
 	switch (CurrentState)
 	{
@@ -83,6 +84,8 @@ bool AButtonBase::Press()
 	case EButtonState::Pressed:
 		CurrentState = EButtonState::Transition;
 		ButtonAnimationComponent->Start();
+		OnButtonStateChanged(CurrentState);
+		OnStateChanged.Broadcast(CurrentState);
 		bIsSuccess = true;
 		break;
 
@@ -90,6 +93,8 @@ bool AButtonBase::Press()
 		if (bIsReversible)
 		{
 			ButtonAnimationComponent->Reverse();
+			OnButtonReversed();
+			OnReversed.Broadcast();
 			bIsSuccess = true;
 		}
 		break;
@@ -118,4 +123,7 @@ void AButtonBase::ChangeState(const ETimelineAnimationState NewAnimationState)
 	default:
 		break;
 	}
+
+	OnButtonStateChanged(CurrentState);
+	OnStateChanged.Broadcast(CurrentState);
 }

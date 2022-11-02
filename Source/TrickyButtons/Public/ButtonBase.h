@@ -18,6 +18,10 @@ enum class EButtonState : uint8
 	Disabled
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChangedSignature, EButtonState, NewState);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReversedSignature);
+
 UCLASS()
 class TRICKYBUTTONS_API AButtonBase : public AActor
 {
@@ -34,6 +38,12 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintAssignable, Category="Button")
+	FOnStateChangedSignature OnStateChanged;
+
+	UPROPERTY(BlueprintAssignable, Category="Button")
+	FOnReversedSignature OnReversed;
+	
 	UFUNCTION(BlueprintCallable, Category="Button")
 	void SetIsEnabled(const bool bIsEnabled);
 
@@ -46,6 +56,18 @@ protected:
 	
 	UFUNCTION(BlueprintCallable, Category="Button")
 	bool Press();
+	
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonStateChanged(EButtonState NewState);
+	
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonReversed();
+	
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonDisabled();
+	
+	UFUNCTION(BlueprintImplementableEvent, Category="Button")
+	void OnButtonEnabled();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
@@ -54,7 +76,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Button", meta=(AllowPrivateAccess))
 	EButtonState CurrentState = EButtonState::Normal;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Button", meta=(AllowPrivateAccess))
+	UPROPERTY(BlueprintReadOnly, Category="Button", meta=(AllowPrivateAccess))
 	EButtonState PreviousState = EButtonState::Normal;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
