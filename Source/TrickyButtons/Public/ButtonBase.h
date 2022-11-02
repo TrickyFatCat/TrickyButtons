@@ -45,7 +45,7 @@ protected:
 	UTimelineAnimationComponent* ButtonAnimationComponent = nullptr;
 	
 	UFUNCTION(BlueprintCallable, Category="Button")
-	void Press();
+	bool Press();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))

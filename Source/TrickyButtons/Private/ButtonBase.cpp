@@ -73,26 +73,32 @@ void AButtonBase::SetIsEnabled(const bool bIsEnabled)
 	}
 }
 
-void AButtonBase::Press()
+bool AButtonBase::Press()
 {
+	bool bIsSuccess = false;
+	
 	switch (CurrentState)
 	{
 	case EButtonState::Normal:
 	case EButtonState::Pressed:
 		CurrentState = EButtonState::Transition;
 		ButtonAnimationComponent->Start();
+		bIsSuccess = true;
 		break;
 
 	case EButtonState::Transition:
 		if (bIsReversible)
 		{
 			ButtonAnimationComponent->Reverse();
+			bIsSuccess = true;
 		}
 		break;
 
 	default:
 		break;
 	}
+
+	return bIsSuccess;
 }
 
 void AButtonBase::ChangeState(const ETimelineAnimationState NewAnimationState)
