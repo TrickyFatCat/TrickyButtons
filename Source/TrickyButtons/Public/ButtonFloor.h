@@ -58,7 +58,7 @@ protected:
 	                                   UPrimitiveComponent* OtherComp,
 	                                   int32 OtherBodyIndex);
 	
-	void OnActivationTriggerEndOverlap_Impleentation(UPrimitiveComponent* OverlappedComponent,
+	void OnActivationTriggerEndOverlap_Implementation(UPrimitiveComponent* OverlappedComponent,
 	                                                 AActor* OtherActor,
 	                                                 UPrimitiveComponent* OtherComp,
 	                                                 int32 OtherBodyIndex);
