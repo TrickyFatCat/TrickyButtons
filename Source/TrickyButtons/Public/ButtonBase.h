@@ -46,6 +46,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Button")
 	void SetIsEnabled(const bool bIsEnabled);
+	
+	UFUNCTION(BlueprintCallable, Category="Button")
+	bool Press();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
