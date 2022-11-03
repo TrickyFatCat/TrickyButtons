@@ -14,6 +14,8 @@ AButtonFloor::AButtonFloor()
 	ActivationTriggerComponent->SetCollisionObjectType(ECC_WorldDynamic);
 	ActivationTriggerComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	ActivationTriggerComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+
+	bIsReversible = true;
 }
 
 void AButtonFloor::BeginPlay()
@@ -25,27 +27,53 @@ void AButtonFloor::BeginPlay()
 	ActivationTriggerComponent->OnComponentEndOverlap.AddDynamic(this, &AButtonFloor::OnActivationTriggerEndOverlap);
 }
 
-void AButtonFloor::OnActivationTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent,
-                                                   AActor* OtherActor,
-                                                   UPrimitiveComponent* OtherComp,
-                                                   int32 OtherBodyIndex,
-                                                   bool bFromSweep,
-                                                   const FHitResult& SweepResult)
+void AButtonFloor::InitiatePress()
+{
+	Press();
+}
+
+void AButtonFloor::OnActivationTriggerBeginOverlap_Implementation(UPrimitiveComponent* OverlappedComponent,
+                                                                  AActor* OtherActor,
+                                                                  UPrimitiveComponent* OtherComp,
+                                                                  int32 OtherBodyIndex,
+                                                                  bool bFromSweep,
+                                                                  const FHitResult& SweepResult)
 {
 	switch (CurrentState)
 	{
 	case EButtonState::Normal:
 	case EButtonState::Pressed:
+		if (ButtonPressDelay > 0.f)
+		{
+			GetWorldTimerManager().SetTimer(ButtonPressDelayTimer,
+			                                this,
+			                                &AButtonFloor::InitiatePress,
+			                                ButtonPressDelay);
+			return;
+		}
+
 		Press();
 		break;
+
+	case EButtonState::Transition:
+		if (bIsReversible)
+		{
+			Press();
+		}
 	}
 }
 
-void AButtonFloor::OnActivationTriggerEndOverlap(UPrimitiveComponent* OverlappedComponent,
-                                                 AActor* OtherActor,
-                                                 UPrimitiveComponent* OtherComp,
-                                                 int32 OtherBodyIndex)
+void AButtonFloor::OnActivationTriggerEndOverlap_Implementation(UPrimitiveComponent* OverlappedComponent,
+                                                                AActor* OtherActor,
+                                                                UPrimitiveComponent* OtherComp,
+                                                                int32 OtherBodyIndex)
 {
+	if (ButtonPressDelay > 0.f && GetWorldTimerManager().IsTimerActive(ButtonPressDelayTimer))
+	{
+		GetWorldTimerManager().ClearTimer(ButtonPressDelayTimer);
+		return;
+	}
+
 	switch (CurrentState)
 	{
 	case EButtonState::Transition:
