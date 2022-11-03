@@ -13,7 +13,7 @@ UENUM(BlueprintType)
 enum class EButtonState : uint8
 {
 	Normal,
-	Transition UMETA(Hidden),
+	Transition,
 	Pressed,
 	Disabled
 };

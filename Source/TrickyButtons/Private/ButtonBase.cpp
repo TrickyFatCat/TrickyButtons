@@ -26,6 +26,10 @@ void AButtonBase::OnConstruction(const FTransform& Transform)
 		ButtonAnimationComponent->InitialState = ETimelineAnimationState::End;
 		break;
 
+	case EButtonState::Transition:
+		InitialState = EButtonState::Normal;
+		break;
+		
 	default:
 		break;
 	}
@@ -41,6 +45,11 @@ void AButtonBase::BeginPlay()
 	PreviousState = CurrentState;
 
 	ButtonAnimationComponent->OnAnimationFinished.AddDynamic(this, &AButtonBase::ChangeState);
+
+	if (CurrentState == EButtonState::Disabled)
+	{
+		SetIsEnabled(false);
+	}
 }
 
 void AButtonBase::Tick(float DeltaTime)
