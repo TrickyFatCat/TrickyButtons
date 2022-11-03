@@ -60,6 +60,9 @@ void AButtonFloor::OnActivationTriggerBeginOverlap_Implementation(UPrimitiveComp
 		{
 			Press();
 		}
+
+	default:
+		break;
 	}
 }
 
@@ -81,6 +84,9 @@ void AButtonFloor::OnActivationTriggerEndOverlap_Implementation(UPrimitiveCompon
 		{
 			Press();
 		}
+		break;
+
+	default:
 		break;
 	}
 }
