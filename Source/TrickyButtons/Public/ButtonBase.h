@@ -69,8 +69,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	bool bIsReversible = false;
 
-	UFUNCTION(BlueprintCallable, Category="Button")
-	bool Press();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess, InlineEditConditionToggle))
+	bool bIsPressedTemporary = false;
+
+	UPROPERTY(EditAnywhere,
+		BlueprintReadWrite,
+		Category="Button",
+		meta=(AllowPrivateAccess, EditCondition="bTimedPressedState", ClampMin="0"))
+	float PressedStateDuration = 0.f;
+
+	UPROPERTY(BlueprintReadOnly, Category="Button")
+	FTimerHandle PressedStateDurationTimer;
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Button")
 	void OnButtonStateChanged(EButtonState NewState);
@@ -86,4 +95,7 @@ protected:
 
 	UFUNCTION()
 	void ChangeState(const ETimelineAnimationState NewAnimationState);
+
+private:
+	void Press_Wrapper();
 };
