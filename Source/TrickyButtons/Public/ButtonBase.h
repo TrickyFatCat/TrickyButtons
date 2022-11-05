@@ -21,6 +21,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChangedSignature, EButtonSta
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReversedSignature);
 
+/**
+ * A base button class with the most basic functionality.
+ */
 UCLASS()
 class TRICKYBUTTONS_API AButtonBase : public AActor
 {
@@ -43,19 +46,34 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Button")
 	FOnReversedSignature OnReversed;
 
+	/**
+	 * Toggles if the button enabled or disabled.
+	 */
 	UFUNCTION(BlueprintCallable, Category="Button")
 	void SetIsEnabled(const bool bIsEnabled);
-	
+
+	/**
+	 * Initiates button logic.
+	 */
 	UFUNCTION(BlueprintCallable, Category="Button")
 	bool Press();
 
 protected:
+	/**
+	 * Called when the button changed state.
+	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	USceneComponent* ButtonRootComponent = nullptr;
 
+	/**
+	 * Called when the button animation was reversed.
+	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UTimelineAnimationComponent* ButtonAnimationComponent = nullptr;
 
+	/**
+	 * The initial state of the button.
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	EButtonState InitialState = EButtonState::Normal;
 
@@ -65,12 +83,21 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Button", meta=(AllowPrivateAccess))
 	EButtonState PreviousState = EButtonState::Normal;
 
+	/**
+	 * Toggles if the button animation can be reversed.
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	bool bIsReversible = false;
 
+	/**
+	 * If true, the button will stay in the pressed state for some time.
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess, InlineEditConditionToggle))
 	bool bIsPressedTemporary = false;
 
+	/**
+	 * How long the button will state in pressed state.
+	 */
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
 		Category="Button",
@@ -80,15 +107,27 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Button")
 	FTimerHandle PressedStateDurationTimer;
 
+	/**
+	 * Called when the button changed its current state.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category="Button")
 	void OnButtonStateChanged(EButtonState NewState);
 
+	/**
+	 * Called when the button animation was reversed.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category="Button")
 	void OnButtonReversed();
 
+	/**
+	 * Called when the button was disabled.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category="Button")
 	void OnButtonDisabled();
 
+	/**
+	 * Called when the button was enabled.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category="Button")
 	void OnButtonEnabled();
 
