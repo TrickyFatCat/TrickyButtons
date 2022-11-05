@@ -7,7 +7,6 @@
 #include "TimelineAnimationComponent.h"
 #include "ButtonBase.generated.h"
 
-class UTimelineAnimationComponent;
 
 UENUM(BlueprintType)
 enum class EButtonState : uint8
