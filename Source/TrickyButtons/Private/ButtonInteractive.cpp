@@ -9,6 +9,7 @@ AButtonInteractive::AButtonInteractive()
 {
 	InteractionTrigger = CreateDefaultSubobject<USphereInteractionTrigger>("InteractionTrigger");
 	InteractionTrigger->SetupAttachment(GetRootComponent());
+	InteractionTrigger->SetInteractionSettings(FInteractionData{this, true, "Interact", 0, 0.f, true});
 }
 
 void AButtonInteractive::BeginPlay()
@@ -31,7 +32,12 @@ bool AButtonInteractive::Interact_Implementation(AActor* OtherActor)
 
 void AButtonInteractive::StopInteraction_Implementation(AActor* OtherActor)
 {
-	if (bIsReversible && !InteractionTrigger->GetInteractionSettings().bCallInteractFunction && CurrentState == EButtonState::Transition)
+	if (CurrentState != EButtonState::Transition)
+	{
+		return;
+	}
+
+	if (bIsReversible && !InteractionTrigger->GetInteractionSettings().bCallInteractFunction)
 	{
 		Press();
 	}
