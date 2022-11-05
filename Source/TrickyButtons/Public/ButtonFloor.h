@@ -9,7 +9,7 @@
 class USphereComponent;
 
 /**
- * 
+ * A button which activated via a trigger. Good for buttons on floor.
  */
 UCLASS()
 class TRICKYBUTTONS_API AButtonFloor : public AButtonBase

@@ -73,3 +73,13 @@ You can find instructions how to adjust this component in the Git page.
 2. `OnButtonReversed` - called when the button animation was reversed;
 3. `OnButtondDisabled` - called when the button was disabled;
 4. `OnButtonEnabled` - called when the button was enabled;
+
+### ButtonInteractive
+
+A button which requires interaction. Good for levers, switches, valves, etc.
+
+It already has an interaction trigger and interface.
+
+### ButtonFloor
+
+A button which activated via a trigger. Good for buttons on floor.

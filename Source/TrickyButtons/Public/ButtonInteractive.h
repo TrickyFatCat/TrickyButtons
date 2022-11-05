@@ -10,7 +10,7 @@
 class USphereInteractionTrigger;
 
 /**
- * 
+ * A button which requires interaction. Good for levers, switches, valves, etc.
  */
 UCLASS()
 class TRICKYBUTTONS_API AButtonInteractive : public AButtonBase, public IInteractionInterface
