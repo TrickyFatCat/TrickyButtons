@@ -3,29 +3,32 @@
 
 #include "ButtonInteractive.h"
 
-#include "InteractionTriggers/SphereInteractionTrigger.h"
+#include "Components/SphereComponent.h"
 
 AButtonInteractive::AButtonInteractive()
 {
-	InteractionTrigger = CreateDefaultSubobject<USphereInteractionTrigger>("InteractionTrigger");
-	InteractionTrigger->SetupAttachment(GetRootComponent());
-	InteractionTrigger->SetInteractionSettings(FInteractionData{this, true, "Interact", 0, 0.f, true});
+	InteractionTriggerComponent = CreateDefaultSubobject<USphereComponent>("InteractionTrigger");
+	InteractionTriggerComponent->SetupAttachment(GetRootComponent());
+	InteractionData.bRequireLineOfSight = true;
 }
 
 void AButtonInteractive::BeginPlay()
 {
 	Super::BeginPlay();
+
+	InteractionTriggerComponent->OnComponentBeginOverlap.AddDynamic(this, &AButtonInteractive::OnInteractionTriggerBeginOverlap);
+	InteractionTriggerComponent->OnComponentEndOverlap.AddDynamic(this, &AButtonInteractive::OnInteractionTriggerEndOverlap);
 }
 
 void AButtonInteractive::StartInteraction_Implementation(AActor* OtherActor)
 {
-	if (bIsReversible && !InteractionTrigger->GetInteractionSettings().bCallInteractFunction)
+	if (bIsReversible)
 	{
 		Press();
 	}
 }
 
-bool AButtonInteractive::Interact_Implementation(AActor* OtherActor)
+bool AButtonInteractive::FinishInteraction_Implementation(AActor* OtherActor)
 {
 	return Press();
 }
@@ -37,8 +40,36 @@ void AButtonInteractive::StopInteraction_Implementation(AActor* OtherActor)
 		return;
 	}
 
-	if (bIsReversible && !InteractionTrigger->GetInteractionSettings().bCallInteractFunction)
+	if (bIsReversible)
 	{
 		Press();
 	}
+}
+
+void AButtonInteractive::OnInteractionTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent,
+                                                          AActor* OtherActor,
+                                                          UPrimitiveComponent* OtherComp,
+                                                          int32 OtherBodyIndex,
+                                                          bool bFromSweep,
+                                                          const FHitResult& SweepResult)
+{
+	if (!IsValid(OtherActor))
+	{
+		return;
+	}
+
+	UInteractionLibrary::AddToInteractionQueue(OtherActor, this, InteractionData);
+}
+
+void AButtonInteractive::OnInteractionTriggerEndOverlap(UPrimitiveComponent* OverlappedComponent,
+                                                        AActor* OtherActor,
+                                                        UPrimitiveComponent* OtherComp,
+                                                        int32 OtherBodyIndex)
+{
+	if (!IsValid(OtherActor))
+	{
+		return;
+	}
+
+	UInteractionLibrary::RemoveFromInteractionQueue(OtherActor, this);
 }
