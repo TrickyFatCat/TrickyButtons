@@ -6,7 +6,7 @@ A plugin with a collection of button actors.
 
 This plugin required this plugins to work:
 
-1. [**TrickyInteractionSystem**](https://github.com/TrickyFatCat/TrickyInteractionSystem) v1.1 and higher;
+1. [**TrickyInteractionSystem**](https://github.com/TrickyFatCat/TrickyInteractionSystem) v1.2 and higher;
 2. [**TrickyAnimationComponents**](https://github.com/TrickyFatCat/TrickyAnimationComponents) v1.2 and higher;
 
 Install them before installing this plugin.
