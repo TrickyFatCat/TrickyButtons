@@ -49,6 +49,7 @@ void AButtonBase::BeginPlay()
 
 	if (CurrentState == EButtonState::Disabled)
 	{
+		PreviousState = EButtonState::Normal;	
 		SetIsEnabled(false);
 	}
 }
