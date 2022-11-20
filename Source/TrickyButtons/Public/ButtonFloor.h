@@ -22,7 +22,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Components")
 	USphereComponent* ActivationTriggerComponent = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Button", meta=(ClampMin="0"))

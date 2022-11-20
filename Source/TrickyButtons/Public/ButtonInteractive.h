@@ -28,7 +28,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Button")
 	FInteractionData InteractionData;
 
-	UPROPERTY(VisibleAnywhere, Category="Components")
+	UPROPERTY(VisibleDefaultsOnly, Category="Components")
 	USphereComponent* InteractionTriggerComponent = nullptr;
 
 private:

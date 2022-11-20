@@ -62,13 +62,13 @@ protected:
 	/**
 	 * Called when the button changed state.
 	 */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Components")
 	USceneComponent* ButtonRootComponent = nullptr;
 
 	/**
 	 * Called when the button animation was reversed.
 	 */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Components")
 	UTimelineAnimationComponent* ButtonAnimationComponent = nullptr;
 
 	/**
