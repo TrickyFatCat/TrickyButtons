@@ -49,7 +49,7 @@ void AButtonBase::BeginPlay()
 
 	if (CurrentState == EButtonState::Disabled)
 	{
-		PreviousState = EButtonState::Normal;	
+		PreviousState = EButtonState::Normal;
 		SetIsEnabled(false);
 	}
 }
@@ -70,7 +70,7 @@ void AButtonBase::SetIsEnabled(const bool bIsEnabled)
 		PreviousState = CurrentState;
 		CurrentState = EButtonState::Disabled;
 	}
-	
+
 	bIsEnabled ? OnButtonEnabled() : OnButtonDisabled();
 
 	switch (CurrentState)
@@ -134,11 +134,15 @@ void AButtonBase::ChangeState(const ETimelineAnimationState NewAnimationState)
 	{
 	case ETimelineAnimationState::Begin:
 		CurrentState = EButtonState::Normal;
+		OnButtonStateChanged(CurrentState);
+		OnStateChanged.Broadcast(CurrentState);
 		break;
 
 	case ETimelineAnimationState::End:
 		CurrentState = EButtonState::Pressed;
-
+		OnButtonStateChanged(CurrentState);
+		OnStateChanged.Broadcast(CurrentState);
+		
 		if (bIsPressedTemporary)
 		{
 			GetWorldTimerManager().SetTimer(PressedStateDurationTimer,
@@ -152,9 +156,6 @@ void AButtonBase::ChangeState(const ETimelineAnimationState NewAnimationState)
 	default:
 		break;
 	}
-
-	OnButtonStateChanged(CurrentState);
-	OnStateChanged.Broadcast(CurrentState);
 }
 
 void AButtonBase::Press_Wrapper()
