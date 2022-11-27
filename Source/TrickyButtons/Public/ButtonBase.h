@@ -92,7 +92,7 @@ protected:
 	/**
 	 * If true, the button will stay in the pressed state for some time.
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess, InlineEditConditionToggle))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Button", meta=(AllowPrivateAccess))
 	bool bIsPressedTemporary = false;
 
 	/**
@@ -101,7 +101,7 @@ protected:
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
 		Category="Button",
-		meta=(AllowPrivateAccess, EditCondition="bTimedPressedState", ClampMin="0"))
+		meta=(AllowPrivateAccess, EditCondition="bIsPressedTemporary", ClampMin="0"))
 	float PressedStateDuration = 0.f;
 
 	UPROPERTY(BlueprintReadOnly, Category="Button")
