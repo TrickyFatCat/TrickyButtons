@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 5,
-	"VersionName": "1.0.4",
+	"Version": 6,
+	"VersionName": "2.0a",
 	"FriendlyName": "TrickyButtons",
 	"Description": "A plugin with a collection of button actors.",
 	"Category": "TrickyPrototyping",
@@ -20,9 +20,7 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"WhitelistPlatforms": [
-				"Win64",
-				"Linux",
-				"Mac"
+				"Win64"
 			]
 		}
 	],
