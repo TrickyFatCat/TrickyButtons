@@ -1,4 +1,4 @@
-// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
+// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -29,7 +29,7 @@ public:
 	FInteractionData InteractionData;
 
 	UPROPERTY(VisibleDefaultsOnly, Category="Components")
-	USphereComponent* InteractionTriggerComponent = nullptr;
+	TObjectPtr<USphereComponent> InteractionTriggerComponent = nullptr;
 
 private:
 	virtual void StartInteraction_Implementation(AActor* OtherActor) override;

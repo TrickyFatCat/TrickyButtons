@@ -1,4 +1,4 @@
-// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
+// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 
 #include "ButtonBase.h"
@@ -10,7 +10,7 @@ AButtonBase::AButtonBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ButtonRootComponent = CreateDefaultSubobject<USceneComponent>("ButtonRoot");
-	SetRootComponent(ButtonRootComponent);
+	SetRootComponent(ToRawPtr(ButtonRootComponent));
 
 	ButtonAnimationComponent = CreateDefaultSubobject<UTimelineAnimationComponent>("ButtonAnimation");
 }

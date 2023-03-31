@@ -1,4 +1,4 @@
-// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
+// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -63,13 +63,13 @@ protected:
 	 * Called when the button changed state.
 	 */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Components")
-	USceneComponent* ButtonRootComponent = nullptr;
+	TObjectPtr<USceneComponent> ButtonRootComponent = nullptr;
 
 	/**
 	 * Called when the button animation was reversed.
 	 */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Components")
-	UTimelineAnimationComponent* ButtonAnimationComponent = nullptr;
+	TObjectPtr<UTimelineAnimationComponent> ButtonAnimationComponent = nullptr;
 
 	/**
 	 * The initial state of the button.
