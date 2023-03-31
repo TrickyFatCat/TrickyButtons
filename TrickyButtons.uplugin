@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 6,
-	"VersionName": "2.0a",
+	"Version": 7,
+	"VersionName": "2.0",
 	"FriendlyName": "TrickyButtons",
 	"Description": "A plugin with a collection of button actors.",
 	"Category": "TrickyPrototyping",
