@@ -19,7 +19,7 @@ enum class EButtonState : uint8
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChangedSignature, EButtonState, NewState);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReversedSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnButtonReversedSignature);
 
 /**
  * A base button class with the most basic functionality.
@@ -44,7 +44,7 @@ public:
 	FOnStateChangedSignature OnStateChanged;
 
 	UPROPERTY(BlueprintAssignable, Category="Button")
-	FOnReversedSignature OnReversed;
+	FOnButtonReversedSignature OnReversed;
 
 	/**
 	 * Toggles if the button enabled or disabled.
